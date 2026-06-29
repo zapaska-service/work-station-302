@@ -3,9 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>ЗАПАСКА СЕРВИС — Панель Мастера</title>
+  <title>ЗАПАСКА СЕРВИС — Терминал</title>
+  
+  <!-- Перекраска шторки смартфона в глубокий черный цвет -->
+  <meta name="theme-color" content="#0d0d0d">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <script>
+    // Мгновенный и безопасный переход по прямой работающей ссылке Google
+    window.location.replace("https://script.google.com/macros/s/AKfycbyHAkTPRKHseKhkCmcZ1sjL51K_EhIhTk0KE8SvdJS59SgzAmVH9DR0yTZv1K_n4avl/exec");
+  </script>
 </head>
-<body style="margin:0; padding:0; background:#0d0d0d; overflow:hidden;">
-  <iframe src="https://script.google.com/macros/s/AKfycbyHAkTPRKHseKhkCmcZ1sjL51K_EhIhTk0KE8SvdJS59SgzAmVH9DR0yTZv1K_n4avl/exec" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;"></iframe>
+<body style="background:#0d0d0d;">
 </body>
 </html>
