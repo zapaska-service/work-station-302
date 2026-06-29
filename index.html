@@ -3,13 +3,78 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>ЗАПАСКА СЕРВИС Мастер </title>
+  <title>ЗАПАСКА СЕРВИС</title>
+
+  <!-- Полная маскировка под автономное мобильное приложение -->
+  <meta name="theme-color" content="#0d0d0d">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="ЗАПАСКА СЕРВИС">
+
+  <style>
+    body, html { margin:0; padding:0; width:100%; height:100%; background:#0d0d0d; overflow:hidden; font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    
+    /* СТИЛЬ КРАСИВОГО ЭКРАНА ЗАСТАВКИ */
+    .splash-screen {
+      position: fixed; top:0; left:0; right:0; bottom:0;
+      background: #0d0d0d; background-image: radial-gradient(circle at center, #141414 0%, #0d0d0d 100%);
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      z-index: 9999999; opacity: 1; transition: opacity 0.5s ease-out, visibility 0.5s;
+    }
+    .splash-screen.fade-out { opacity: 0; visibility: hidden; }
+    
+    /* ЗОЛОТОЙ НЕОНОВЫЙ ЛОГОТИП КОЛЕСА (Построен на SVG) */
+    .splash-logo {
+      width: 80px; height: 80px; margin-bottom: 20px;
+      animation: pulseGlow 2s infinite ease-in-out;
+    }
+    .logo-text-main { font-size: 24px; font-weight: 900; color: #faad14; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; text-shadow: 0 0 10px rgba(250,173,20,0.2); }
+    .logo-text-sub { font-size: 11px; font-weight: 700; color: #8c8c8c; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 30px; }
+    
+    /* ИНДИКАТОР ЗАГРУЗКИ (ТОНКАЯ ЛИНИЯ) */
+    .loader-bar { width: 140px; height: 2px; background: #262626; border-radius: 2px; overflow: hidden; position: relative; }
+    .loader-bar-progress { position: absolute; height: 100%; background: #faad14; width: 0; animation: loadProgress 1.4s forwards cubic-bezier(0.1, 0.8, 0.25, 1); box-shadow: 0 0 8px #faad14; }
+    .loader-caption { font-size: 10px; font-weight: 600; color: #444; text-transform: uppercase; letter-spacing: 1px; margin-top: 8px; }
+
+    @keyframes pulseGlow {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(250,173,20,0.2)); }
+      50% { transform: scale(1.04); filter: drop-shadow(0 0 18px rgba(250,173,20,0.5)); }
+    }
+    @keyframes loadProgress { 0% { width: 0; } 100% { width: 100%; } }
+  </style>
 </head>
-<body style="margin:0; padding:0; background:#0d0d0d; overflow:hidden;">
-  
+<body>
+
+  <!-- ДИЗАЙНЕРСКИЙ SPLASH SCREEN -->
+  <div id="splash" class="splash-screen">
+    <!-- SVG-иконка спортивного автомобильного диска/колеса -->
+    <svg class="splash-logo" viewBox="0 0 24 24" fill="none" xmlns="http://w3.org">
+      <circle cx="12" cy="12" r="10" stroke="#faad14" stroke-width="2"/>
+      <circle cx="12" cy="12" r="3" stroke="#faad14" stroke-width="1.5"/>
+      <path d="M12 2V9M12 15V22M2 12H9M15 12H22M4.93 4.93L9.9 9.9M14.1 14.1L19.07 19.07M19.07 4.93L14.1 9.9M9.9 14.1L4.93 19.07" stroke="#faad14" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <div class="logo-text-main">ЗАПАСКА</div>
+    <div class="logo-text-sub">С Е Р В И С</div>
+    
+    <div class="loader-bar"><div class="loader-bar-progress"></div></div>
+    <div class="loader-caption">Загрузка системы...</div>
+  </div>
+
+  <!-- САМО ПРИЛОЖЕНИЕ (ЗАГРУЖАЕТСЯ НА ФОНЕ ПОД ЗАСТАВКОЙ) -->
   <iframe src="https://script.google.com/macros/s/AKfycbyHAkTPRKHseKhkCmcZ1sjL51K_EhIhTk0KE8SvdJS59SgzAmVH9DR0yTZv1K_n4avl/exec" 
-          style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+          style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:99999;">
   </iframe>
+
+  <script>
+    // Ждем 1.5 секунды, пока белая вспышка пройдет на фоне и подгрузится структура, затем красиво растворяем заставку
+    setTimeout(function() {
+      var splash = document.getElementById('splash');
+      if (splash) {
+        splash.classList.add('fade-out');
+      }
+    }, 1500);
+  </script>
 
 </body>
 </html>
