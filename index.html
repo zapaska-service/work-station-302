@@ -13,67 +13,99 @@
   <meta name="apple-mobile-web-app-title" content="ЗАПАСКА СЕРВИС">
 
   <style>
-    body, html { margin:0; padding:0; width:100%; height:100%; background:#0d0d0d; overflow:hidden; font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body, html { margin:0; padding:0; width:100%; height:100%; background:#0d0d0d; overflow:hidden; font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; user-select: none; }
     
-    /* СТИЛЬ КРАСИВОГО ЭКРАНА ЗАСТАВКИ */
+    /* СТИЛЬ ПРЕМИАЛЬНОГО ЭКРАНА ЗАСТАВКИ */
     .splash-screen {
       position: fixed; top:0; left:0; right:0; bottom:0;
-      background: #0d0d0d; background-image: radial-gradient(circle at center, #141414 0%, #0d0d0d 100%);
+      background: #060606; 
+      background-image: radial-gradient(circle at center, #111111 0%, #060606 100%);
       display: flex; flex-direction: column; justify-content: center; align-items: center;
-      z-index: 9999999; opacity: 1; transition: opacity 0.5s ease-out, visibility 0.5s;
+      z-index: 9999999; opacity: 1; transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.6s;
     }
     .splash-screen.fade-out { opacity: 0; visibility: hidden; }
     
-    /* ЗОЛОТОЙ НЕОНОВЫЙ ЛОГОТИП КОЛЕСА (Построен на SVG) */
+    /* КРУПНЫЙ ЗОЛОТОЙ НЕОНОВЫЙ ЛОГОТИП С ЭФФЕКТОМ ПЛАВНОГО ДЫХАНИЯ */
     .splash-logo {
-      width: 80px; height: 80px; margin-bottom: 20px;
-      animation: pulseGlow 2s infinite ease-in-out;
+      width: 130px; height: 130px; margin-bottom: 28px;
+      animation: pulseGlow 2.5s infinite ease-in-out;
+      opacity: 0; animation-fill-mode: forwards;
+      animation-name: pulseGlow, fadeInComponent;
+      animation-duration: 2.5s, 0.8s;
+      animation-iteration-count: infinite, 1;
     }
-    .logo-text-main { font-size: 24px; font-weight: 900; color: #faad14; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; text-shadow: 0 0 10px rgba(250,173,20,0.2); }
-    .logo-text-sub { font-size: 11px; font-weight: 700; color: #8c8c8c; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 30px; }
     
-    /* ИНДИКАТОР ЗАГРУЗКИ (ТОНКАЯ ЛИНИЯ) */
-    .loader-bar { width: 140px; height: 2px; background: #262626; border-radius: 2px; overflow: hidden; position: relative; }
-    .loader-bar-progress { position: absolute; height: 100%; background: #faad14; width: 0; animation: loadProgress 1.4s forwards cubic-bezier(0.1, 0.8, 0.25, 1); box-shadow: 0 0 8px #faad14; }
-    .loader-caption { font-size: 10px; font-weight: 600; color: #444; text-transform: uppercase; letter-spacing: 1px; margin-top: 8px; }
-
-    @keyframes pulseGlow {
-      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(250,173,20,0.2)); }
-      50% { transform: scale(1.04); filter: drop-shadow(0 0 18px rgba(250,173,20,0.5)); }
+    /* МАССИВНЫЙ БИЗНЕС-ШРИФТ НАЗВАНИЯ */
+    .logo-text-main { 
+      font-size: 32px; 
+      font-weight: 900; 
+      color: #faad14; 
+      letter-spacing: 5px; 
+      text-transform: uppercase; 
+      margin-bottom: 6px; 
+      text-shadow: 0 0 15px rgba(250,173,20,0.35);
+      opacity: 0; animation: fadeInComponent 0.8s ease-out 0.2s forwards;
     }
+    .logo-text-sub { 
+      font-size: 13px; 
+      font-weight: 800; 
+      color: #666666; 
+      letter-spacing: 7px; 
+      text-transform: uppercase; 
+      margin-bottom: 45px;
+      opacity: 0; animation: fadeInComponent 0.8s ease-out 0.4s forwards;
+    }
+    
+    /* УВЕЛИЧЕННЫЙ ИНДИКАТОР ЗАГРУЗКИ */
+    .loader-container {
+      display: flex; flex-direction: column; align-items: center;
+      opacity: 0; animation: fadeInComponent 0.8s ease-out 0.5s forwards;
+    }
+    .loader-bar { width: 180px; height: 3px; background: #1f1f1f; border-radius: 3px; overflow: hidden; position: relative; }
+    .loader-bar-progress { position: absolute; height: 100%; background: #faad14; width: 0; animation: loadProgress 1.6s forwards cubic-bezier(0.1, 0.8, 0.25, 1); box-shadow: 0 0 10px #faad14; }
+    .loader-caption { font-size: 11px; font-weight: 700; color: #444; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 10px; }
+
+    /* АНИМАЦИИ */
+    @keyframes pulseGlow {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(250,173,20,0.25)); }
+      50% { transform: scale(1.03); filter: drop-shadow(0 0 25px rgba(250,173,20,0.6)); }
+    }
+    @keyframes fadeInComponent { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
     @keyframes loadProgress { 0% { width: 0; } 100% { width: 100%; } }
   </style>
 </head>
 <body>
 
-  <!-- ДИЗАЙНЕРСКИЙ SPLASH SCREEN -->
+  <!-- КРУПНЫЙ ДИЗАЙНЕРСКИЙ SPLASH SCREEN -->
   <div id="splash" class="splash-screen">
-    <!-- SVG-иконка спортивного автомобильного диска/колеса -->
+    <!-- SVG-иконка крупного спортивного автомобильного диска -->
     <svg class="splash-logo" viewBox="0 0 24 24" fill="none" xmlns="http://w3.org">
-      <circle cx="12" cy="12" r="10" stroke="#faad14" stroke-width="2"/>
-      <circle cx="12" cy="12" r="3" stroke="#faad14" stroke-width="1.5"/>
-      <path d="M12 2V9M12 15V22M2 12H9M15 12H22M4.93 4.93L9.9 9.9M14.1 14.1L19.07 19.07M19.07 4.93L14.1 9.9M9.9 14.1L4.93 19.07" stroke="#faad14" stroke-width="1.5" stroke-linecap="round"/>
+      <circle cx="12" cy="12" r="10" stroke="#faad14" stroke-width="2.2"/>
+      <circle cx="12" cy="12" r="3.5" stroke="#faad14" stroke-width="1.8"/>
+      <path d="M12 2V8.5M12 15.5V22M2 12H8.5M15.5 12H22M4.93 4.93L9.5 9.5M14.5 14.5L19.07 19.07M19.07 4.93L14.5 9.5M9.5 14.5L4.93 19.07" stroke="#faad14" stroke-width="1.8" stroke-linecap="round"/>
     </svg>
     <div class="logo-text-main">ЗАПАСКА</div>
     <div class="logo-text-sub">С Е Р В И С</div>
     
-    <div class="loader-bar"><div class="loader-bar-progress"></div></div>
-    <div class="loader-caption">Загрузка системы...</div>
+    <div class="loader-container">
+      <div class="loader-bar"><div class="loader-bar-progress"></div></div>
+      <div class="loader-caption">Запуск системы...</div>
+    </div>
   </div>
 
-  <!-- САМО ПРИЛОЖЕНИЕ (ЗАГРУЖАЕТСЯ НА ФОНЕ ПОД ЗАСТАВКОЙ) -->
+  <!-- САМО ПРИЛОЖЕНИЕ (ЗАГРУЖАЕТСЯ НА ФОНЕ) -->
   <iframe src="https://script.google.com/macros/s/AKfycbyHAkTPRKHseKhkCmcZ1sjL51K_EhIhTk0KE8SvdJS59SgzAmVH9DR0yTZv1K_n4avl/exec" 
           style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:99999;">
   </iframe>
 
   <script>
-    // Ждем 1.5 секунды, пока белая вспышка пройдет на фоне и подгрузится структура, затем красиво растворяем заставку
+    // Увеличили время заставки до 1.8 секунд, чтобы клиент успел насладиться солидной анимацией
     setTimeout(function() {
       var splash = document.getElementById('splash');
       if (splash) {
         splash.classList.add('fade-out');
       }
-    }, 1500);
+    }, 1800);
   </script>
 
 </body>
